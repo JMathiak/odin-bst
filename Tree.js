@@ -3,7 +3,7 @@ import { Node } from "./Node.js";
 class Tree{
     constructor(arr){
         arr = [...new Set(arr)]
-        this.data = mergeSort(arr)
+        this.data = arr.sort((a,b) => a - b)
         this.root = this.buildTree(this.data)
 
     }
@@ -19,22 +19,54 @@ class Tree{
         return root;
     }
 
-    insert(root, value)
-    {
+    // insert(root, value)
+    // {
     
-      if(root === null) return new Node(value)
+    //   if(root === null) return new Node(value)
         
-      if(root.data === value) return root
-      if(value < root.data)
+    //   if(root.data === value) return root
+    //   if(value < root.data)
+    //   {
+    //    root.left = this.insert(root.left, value)
+    //   }else if(value > root.data)
+    //   {
+    //     root.right = this.insert(root.right, value)
+    //   }
+
+    //   return root
+     
+    // }
+
+    insert(value)
+    {
+      let root = this.root
+      let holder = null
+      if(root == null)
       {
-       root.left = this.insert(root.left, value)
-      }else if(value > root.data)
-      {
-        root.right = this.insert(root.right, value)
+        this.root = new Node(value)
       }
 
-      return root
-     
+      while(root != null)
+      {
+        holder = root
+        if(value > holder.data)
+        {
+          root = root.right
+        }else{
+          root = root.left
+        }
+      }
+
+      if(value < holder.data)
+      {
+        holder.left = new Node(value)
+      }else if(value > holder.data)
+      {
+        holder.right = new Node(value)
+      }
+
+
+
     }
 }
 
@@ -52,44 +84,12 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
     }
   };
 
-  function merge(lArr, rArr){
-    let sorted = []
-    while(lArr.length && rArr.length){
-        if(lArr[0] < rArr[0])
-        {
-            sorted.push(lArr.shift())
-            
-    
-        }else{
-            sorted.push(rArr.shift())
-           
-            
-        }
-    }
-  
-    return [...sorted, ...lArr, ...rArr]
-}
 
-function mergeSort(arr)
-{
-        if (arr.length <= 1)
-        {
-            return arr
-        }
-        let mid = Math.floor(arr.length / 2)
-        let left = mergeSort(arr.slice(0, mid))
-        let right = mergeSort(arr.slice(mid))
-        return merge(left, right)
-    
-    
-   
-
-}
 
 let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
 let test = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 prettyPrint(test.root)
-test.insert(test.root, 32)
+test.insert(32)
 
 prettyPrint(test.root)
 

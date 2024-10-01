@@ -67,51 +67,6 @@ class Tree{
 
     }
 
-    // deleteValue(value)
-    // {
-    //   let root = this.root
-    //   let forwardNode = null
-    //   if(value > root.data) forwardNode = root.right
-    //   else forwardNode = root.left
-
-    //   while(forwardNode.data != value)
-    //   {
-    //     root = forwardNode
-    //     if(value > root.data) forwardNode = root.right
-    //     else forwardNode = root.left
-    //   }
-
-    //   if(forwardNode.left == null && forwardNode.right == null) {
-    //     if(forwardNode.data > root.value) root.right = null
-    //     else root.left = null
-    //   }else if ((forwardNode.left != null && forwardNode.right == null) || (forwardNode.left == null && forwardNode.right != null))
-    //   {
-    //     if(forwardNode.left == null)
-    //     {
-    //       if(forwardNode.data > root.data) root.right = forwardNode.right
-    //       else root.left = forwardNode.right
-    //     }else if(forwardNode.right == null)
-    //     {
-    //       if(forwardNode.data > root.data) root.right = forwardNode.left
-    //       else root.left = forwardNode.left
-    //     }
-    //   }else if(forwardNode.left != null && forwardNode.right != null)
-    //   {
-    //     let movingNode = forwardNode.right
-    //     let smallValue = movingNode
-    //     while(movingNode.left != null){
-    //       smallValue = movingNode
-    //       movingNode = movingNode.left
-    //     }
-    //     if(smallValue !== null)
-    //     {
-    //       smallValue.left = movingNode.right
-    //     }else{
-    //       forwardNode.right = movingNode.right 
-    //     }
-    //     forwardNode.data = smallValue.data
-    //   }
-    // }
 
     deleteValue(value){
       let curr = this.root
@@ -153,8 +108,8 @@ class Tree{
       }else // Two child case
       {
     
-          let p = null // right subtree
-          let temp = curr.right // to take right children of smallest value
+          let p = null 
+          let temp = curr.right // right subtree
           while(temp.left !== null) //traverse  down right subtree always going less
           {
             p = temp// store node before going to next
@@ -167,6 +122,19 @@ class Tree{
 
       }
 
+    }
+
+    find(value)
+    {
+      let root = this.root
+      while(root.data != value)
+      {
+        if(value > root.data)  root = root.right
+        else root = root.left 
+      }
+
+      return root
+      
     }
 }
 
@@ -194,3 +162,4 @@ prettyPrint(test.root)
 console.log("-------------------------------")
 test.deleteValue(67)
 prettyPrint(test.root)
+console.log(test.find(8))

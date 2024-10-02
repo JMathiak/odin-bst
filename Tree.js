@@ -188,8 +188,19 @@ class Tree{
         }
       
       }
+    }
 
-      
+    preOrder(callback){
+      let stack = []
+      stack.unshift(this.root)
+      while(stack.length)
+      {
+        let pop = stack.shift()
+        callback(pop)
+        if(pop.right != null) stack.unshift(pop.right)
+        if(pop.left != null) stack.unshift(pop.left)
+      }
+
     }
 }
 
@@ -223,6 +234,7 @@ prettyPrint(test.root)
 // console.log(test.find(8))
 // //test.levelOrder(printNode)
 test.inOrder(printNode)
+test.preOrder(printNode)
 
 /*
 stack -> 3 4 8

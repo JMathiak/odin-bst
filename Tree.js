@@ -138,6 +138,11 @@ class Tree{
     }
 
     levelOrder(callback){
+
+      if(typeof(callback) !== "function")
+      {
+        throw new Error("Parameter is not a function")
+      }
       // shift removes first element from array
       let queue = []
       queue.push(this.root)
@@ -154,6 +159,37 @@ class Tree{
         callback(working)
       }
 
+    }
+
+    inOrder(callback)
+    {
+      if(typeof(callback) !== 'function'){
+        throw new Error("Parameter is not a function")
+      }
+      if(this.root == null) return
+      let stack = []
+      // shift removes first element
+      // unshift puts element at the beginning of array
+
+      
+      let current = this.root
+      
+      while(stack.length || current != null)
+      {
+  
+        if(current != null)
+        {
+          stack.unshift(current)
+          current = current.left
+        }else{
+          let pop = stack.shift()
+          callback(pop)
+          current = pop.right
+        }
+      
+      }
+
+      
     }
 }
 
@@ -184,5 +220,14 @@ prettyPrint(test.root)
 console.log("-------------------------------")
 test.deleteValue(67)
 prettyPrint(test.root)
-console.log(test.find(8))
-test.levelOrder(printNode)
+// console.log(test.find(8))
+// //test.levelOrder(printNode)
+test.inOrder(printNode)
+
+/*
+stack -> 3 4 8
+pop 3 -> no sub tree
+stack -> 4 8
+pop 4
+
+*/

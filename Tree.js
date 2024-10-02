@@ -232,8 +232,11 @@ console.log("-------------------------------")
 test.deleteValue(67)
 prettyPrint(test.root)
 // console.log(test.find(8))
-// //test.levelOrder(printNode)
+console.log("---- Level Order ----")
+test.levelOrder(printNode)
+console.log("---- In Order ----")
 test.inOrder(printNode)
+console.log("---- Pre Order ----")
 test.preOrder(printNode)
 
 /*

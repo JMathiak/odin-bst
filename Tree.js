@@ -136,6 +136,25 @@ class Tree{
       return root
       
     }
+
+    levelOrder(callback){
+      // shift removes first element from array
+      let queue = []
+      queue.push(this.root)
+      while(queue.length != 0)
+      {
+        let working = queue.shift()
+        if(working.left !== null)
+        {
+          queue.push(working.left)
+        }
+
+        if(working.right != null) queue.push(working.right)
+
+        callback(working)
+      }
+
+    }
 }
 
 
@@ -152,6 +171,9 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
     }
   };
 
+  const printNode = (node) => {
+    console.log(node.data)
+  }
 
 
 let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
@@ -163,3 +185,4 @@ console.log("-------------------------------")
 test.deleteValue(67)
 prettyPrint(test.root)
 console.log(test.find(8))
+test.levelOrder(printNode)

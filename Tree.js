@@ -130,7 +130,8 @@ class Tree{
       while(root.data != value)
       {
         if(value > root.data)  root = root.right
-        else root = root.left 
+        else if(value < root.data) root = root.left 
+        else if(root.left == null && root.right == null && root.data != value) return 'Value is not in tree'
       }
 
       return root

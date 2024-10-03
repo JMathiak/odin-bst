@@ -223,7 +223,27 @@ class Tree{
         let pop = secondStack.pop()
         callback(pop)
       }
+    }
 
+    depth(val)
+    {
+      let root = this.root
+      let depth = 0
+      if(val == root.data) return 0
+      while(root.data != val)
+      {
+        if(val > root.data)  
+          {
+            root = root.right
+            depth++
+          }
+        else {
+          root = root.left 
+          depth++
+        }
+      }
+     return depth
+      
     }
 }
 
@@ -263,6 +283,7 @@ console.log("---- Pre Order ----")
 test.preOrder(printNode)
 console.log("---- Post Order ----")
 test.postOrder(printNode)
+console.log("Depth of 22: ", test.depth(22))
 
 /*
 stack -> 3 4 8

@@ -191,6 +191,10 @@ class Tree{
     }
 
     preOrder(callback){
+      if(typeof(callback) !== 'function'){
+        throw new Error("Parameter is not a function")
+      }
+
       let stack = []
       stack.unshift(this.root)
       while(stack.length)
@@ -204,6 +208,9 @@ class Tree{
     }
 
     postOrder(callback){
+      if(typeof(callback) !== 'function'){
+        throw new Error("Parameter is not a function")
+      }
       let firstStack = []
       let secondStack = []
       //LIFO

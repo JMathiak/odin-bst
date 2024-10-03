@@ -131,7 +131,7 @@ class Tree{
       {
         if(value > root.data)  root = root.right
         else if(value < root.data) root = root.left 
-        else if(root.left == null && root.right == null && root.data != value) return 'Value is not in tree'
+        else if(root.left == null && root.right == null && root.data != value) return null
       }
 
       return root
@@ -251,7 +251,25 @@ class Tree{
         }
       }
      return depth
-      
+    }
+
+    height(val)
+    {
+      let height = 0
+      let node = this.find(val)
+      if(node != null)
+      {
+        height = this.heightHelper(node)
+      }
+      return height
+    }
+
+    heightHelper(node)
+    {
+      if(node == null) return -1
+      let leftHeight = this.heightHelper(node.left)
+      let rightHeight = this.heightHelper(node.right)
+      return Math.max(leftHeight, rightHeight) + 1
     }
 }
 
@@ -292,6 +310,7 @@ test.preOrder(printNode)
 console.log("---- Post Order ----")
 test.postOrder(printNode)
 console.log("Depth of 22: ", test.depth(22))
+console.log("Height of 9: ", test.height(9))
 
 /*
 stack -> 3 4 8

@@ -202,6 +202,29 @@ class Tree{
       }
 
     }
+
+    postOrder(callback){
+      let firstStack = []
+      let secondStack = []
+      //LIFO
+      // shift removes first element
+      // unshift puts element at the beginning of array
+      firstStack.push(this.root)
+      while(firstStack.length > 0)
+      {
+        let pop = firstStack.pop()
+        secondStack.push(pop)
+        if(pop.left != null) firstStack.push(pop.left)
+        if(pop.right != null) firstStack.push(pop.right)
+      }
+
+      while(secondStack.length > 0)
+      {
+        let pop = secondStack.pop()
+        callback(pop)
+      }
+
+    }
 }
 
 
@@ -238,6 +261,8 @@ console.log("---- In Order ----")
 test.inOrder(printNode)
 console.log("---- Pre Order ----")
 test.preOrder(printNode)
+console.log("---- Post Order ----")
+test.postOrder(printNode)
 
 /*
 stack -> 3 4 8

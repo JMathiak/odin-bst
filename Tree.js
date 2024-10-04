@@ -2,9 +2,9 @@ import { Node } from "./Node.js";
 
 class Tree{
     constructor(arr){
-        arr = [...new Set(arr)]
-        this.data = arr.sort((a,b) => a - b)
-        this.root = this.buildTree(this.data)
+        this.arr = [...new Set(arr)]
+        this.data = this.arr.sort((a,b) => a - b)
+        this.root = null
 
     }
 
@@ -13,6 +13,7 @@ class Tree{
 
         let mid = Math.floor(arr.length / 2)
         let root = new Node(arr[mid])
+        if(this.root == null) this.root = root
         root.left = this.buildTree(arr.slice(0, mid))
         root.right = this.buildTree(arr.slice(mid))
 
@@ -271,6 +272,34 @@ class Tree{
       let rightHeight = this.heightHelper(node.right)
       return Math.max(leftHeight, rightHeight) + 1
     }
+
+
+    isBalanced(root){
+
+      if (root == null)
+        return 0;
+    let lh = this.isBalanced(root.left);
+    if (lh == -1)
+        return -1;
+    let rh = this.isBalanced(root.right);
+    if (rh == -1)
+        return -1;
+
+    if (Math.abs(lh - rh) > 1)
+        return -1;
+    else
+        return Math.max(lh, rh) + 1;
+    }
+
+    rebalance(){
+      this.inOrder(addNode)
+      this.data = newArr.sort((a,b) => a - b)
+      this.root = this.buildTree(this.data)
+
+
+    }
+
+    
 }
 
 
@@ -291,26 +320,56 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
     console.log(node.data)
   }
 
+  const addNode = (node) =>{
+    newArr.push(node.data)
+  }
+ 
 
-let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
-let test = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
-test.insert(32)
-test.insert(22)
+  
+let newArr = []
+let buildArr = []
+for(let i = 0; i < 15; i++)
+  {
+    buildArr.push(Math.floor(Math.random() * 100))
+  }
+let test = new Tree(buildArr)
+test.buildTree(test.data)
 prettyPrint(test.root)
-console.log("-------------------------------")
-test.deleteValue(67)
-prettyPrint(test.root)
-// console.log(test.find(8))
-console.log("---- Level Order ----")
-test.levelOrder(printNode)
+console.log(test.root)
+if(test.isBalanced(test.root) > 0)
+  console.log('Tree is balanced')
+else console.log("Tree is Not Balanced")
 console.log("---- In Order ----")
 test.inOrder(printNode)
 console.log("---- Pre Order ----")
 test.preOrder(printNode)
 console.log("---- Post Order ----")
 test.postOrder(printNode)
-console.log("Depth of 22: ", test.depth(22))
-console.log("Height of 9: ", test.height(9))
+console.log("---- Level Order ----")
+test.levelOrder(printNode)
+for(let i = 0; i < 10; i++)
+{
+  test.insert(Math.floor(Math.random() * 1000) + 100)
+}
+prettyPrint(test.root)
+if(test.isBalanced(test.root) > 0)
+  console.log('Tree is balanced')
+else console.log("Tree is Not Balanced")
+test.rebalance()
+prettyPrint(test.root)
+if(test.isBalanced(test.root) > 0)
+  console.log('Tree is balanced')
+else console.log("Tree is Not Balanced")
+console.log("---- In Order ----")
+test.inOrder(printNode)
+console.log("---- Pre Order ----")
+test.preOrder(printNode)
+console.log("---- Post Order ----")
+test.postOrder(printNode)
+console.log("---- Level Order ----")
+test.levelOrder(printNode)
+
+
 
 /*
 stack -> 3 4 8
